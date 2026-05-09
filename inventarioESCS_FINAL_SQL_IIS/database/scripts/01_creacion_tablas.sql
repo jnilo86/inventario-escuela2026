@@ -328,23 +328,26 @@ GO
 -- ----------------------------------------------------------------------------
 -- TABLA: qr_historial
 -- Descripción: Historial de códigos QR generados
--- Registra cada generación/reimpresión de QR
+-- Registra cada generación/reimpresión de QR para auditoría y trazabilidad
 -- ----------------------------------------------------------------------------
 CREATE TABLE qr_historial (
-    id_qr_historial INT PRIMARY KEY IDENTITY(1,1),     -- Identificador único
-    id_activo INT FOREIGN KEY REFERENCES activos(id_activo), -- Activo asociado
-    contenido_qr NVARCHAR(MAX),                        -- Contenido codificado en el QR
-    ruta_imagen NVARCHAR(500),                         -- Ruta de la imagen QR generada
-    tipo_impresion NVARCHAR(50),                       -- Tipo: Individual, Masivo
-    plantilla_usada NVARCHAR(100),                     -- Plantilla utilizada
-    es_reimpresion BIT DEFAULT 0,                      -- Indica si es reimpresión (1=Sí, 0=No)
-    id_qr_original INT,                                -- Referencia al QR original (si es reimpresión)
-    fecha_generacion DATETIME DEFAULT GETDATE(),       -- Fecha de generación
-    generado_por INT FOREIGN KEY REFERENCES usuarios(id_usuario)  -- Usuario que generó
+    id_historial INT PRIMARY KEY IDENTITY(1,1),        -- Identificador único del registro
+    activo_id INT NOT NULL,                            -- ID del activo asociado (sin FK directa para flexibilidad)
+    eqp NVARCHAR(50) NOT NULL,                         -- Código EQP institucional del activo
+    fecha_generacion DATETIME DEFAULT GETDATE(),       -- Fecha y hora de generación del QR
+    usuario_id INT NOT NULL,                           -- ID del usuario que generó el QR
+    tamano_nombre NVARCHAR(100) NOT NULL,              -- Nombre del tamaño de pegatina usado
+    formato_salida NVARCHAR(20) NOT NULL,              -- Formato: png, svg, pdf
+    ruta_archivo NVARCHAR(500) NOT NULL,               -- Ruta relativa del archivo generado
+    observaciones NVARCHAR(MAX),                       -- Observaciones opcionales del usuario
+    reimpresion BIT DEFAULT 0                          -- Indica si es reimpresión (1=Sí, 0=No)
 );
 
--- Índice para búsqueda por activo
-CREATE INDEX IX_qr_historial_activo ON qr_historial(id_activo);
+-- Índices para búsqueda optimizada
+CREATE INDEX IX_qr_historial_activo ON qr_historial(activo_id);
+CREATE INDEX IX_qr_historial_eqp ON qr_historial(eqp);
+CREATE INDEX IX_qr_historial_fecha ON qr_historial(fecha_generacion);
+CREATE INDEX IX_qr_historial_usuario ON qr_historial(usuario_id);
 GO
 
 -- ----------------------------------------------------------------------------

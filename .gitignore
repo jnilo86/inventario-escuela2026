@@ -1,27 +1,21 @@
 ```
+# Environment variables
+.env
+.env.local
+.env.*
+
+# Compressed files
+*.zip
+
 # Dependencies
 node_modules/
 
-# Build outputs
+# Build artifacts
 dist/
 build/
 target/
 
-# Logs
-*.log
-
-# Environment variables
-.env
-.env.local
-*.env.*
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Python specific
+# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -30,57 +24,49 @@ __pycache__/
 env/
 venv/
 .venv/
+.venv.bak/
 pip-log.txt
 pip-delete-this-directory.txt
-.tox/
+
+# Logs
+*.log
+
+# Coverage reports
+coverage/
+htmlcov/
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
-*.log
-.git/
-.mypy_cache/
-.pytest_cache/
 .hypothesis/
+.pytest_cache/
 
-# Node.js specific
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-node_modules/
-dist/
-build/
-.nyc_output
-coverage/
-*.lcov
-.next/
-.nuxt/
-public/
-!.gitkeep
-out/
-export/
-.next
-.cache/
-storybook-static/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# TypeScript specific
-*.tsbuildinfo
-*.js.map
-*.ts.map
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
-# OS generated files
+# OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# PyTest
+.pytest_cache/
+
+# SQLite
+*.sqlite
+*.db
+
+# Temporary files
+*.tmp
+*.temp
 ```
