@@ -42,6 +42,7 @@ htmlcov/
 
 # Compressed files
 *.zip
+!inventarioESCS_FINAL_SQL_IIS.zip
 *.gz
 *.tar
 *.tgz
